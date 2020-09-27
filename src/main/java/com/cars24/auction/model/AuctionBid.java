@@ -1,11 +1,8 @@
 package com.cars24.auction.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import com.cars24.auction.model.response.BidStatusResponse;
+
+import javax.persistence.*;
 
 
 @Entity
@@ -14,20 +11,24 @@ import javax.persistence.UniqueConstraint;
                 "auctionBidId"
         })
 })
-
 public class AuctionBid {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long auctionBidId;
 
-    private String itemCode;
 
-    private Long userID;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "itemCode", nullable = false, referencedColumnName = "itemCode")
+    private Auction itemCode;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "userID", nullable = false, referencedColumnName = "userID")
+    private User userID;
 
     private Double bidAmount;
 
-    private Double bidResponse;
+    private BidStatusResponse bidResponse;
 
     public Long getAuctionBidId() {
         return auctionBidId;
@@ -35,22 +36,6 @@ public class AuctionBid {
 
     public void setAuctionBidId(Long auctionBidId) {
         this.auctionBidId = auctionBidId;
-    }
-
-    public String getItemCode() {
-        return itemCode;
-    }
-
-    public void setItemCode(String itemCode) {
-        this.itemCode = itemCode;
-    }
-
-    public Long getUserID() {
-        return userID;
-    }
-
-    public void setUserID(Long userID) {
-        this.userID = userID;
     }
 
     public Double getBidAmount() {
@@ -61,11 +46,27 @@ public class AuctionBid {
         this.bidAmount = bidAmount;
     }
 
-    public Double getBidResponse() {
+    public BidStatusResponse getBidResponse() {
         return bidResponse;
     }
 
-    public void setBidResponse(Double bidResponse) {
+    public void setBidResponse(BidStatusResponse bidResponse) {
         this.bidResponse = bidResponse;
+    }
+
+    public Auction getItemCode() {
+        return itemCode;
+    }
+
+    public void setItemCode(Auction itemCode) {
+        this.itemCode = itemCode;
+    }
+
+    public User getUserID() {
+        return userID;
+    }
+
+    public void setUserID(User userID) {
+        this.userID = userID;
     }
 }

@@ -1,26 +1,19 @@
 package com.cars24.auction.model;
 
-import jdk.net.SocketFlow;
+
+
+import com.cars24.auction.model.request.AuctionStatus;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 
 @Entity
-@Table(name = "auction", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {
-                "itemCode"
-        })
-})
-
+@Table(name = "auction")
 public class Auction {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String itemCode;
 
     private Double minBasePrice;
