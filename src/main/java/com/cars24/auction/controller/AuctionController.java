@@ -3,6 +3,7 @@ package com.cars24.auction.controller;
 
 import com.cars24.auction.model.Auction;
 import com.cars24.auction.model.request.AuctionStatus;
+import com.cars24.auction.model.request.PlaceBidRequest;
 import com.cars24.auction.model.response.BidStatusResponse;
 import com.cars24.auction.model.response.Response;
 import com.cars24.auction.service.AuctionService;
@@ -20,7 +21,7 @@ public class AuctionController {
     @Autowired
     AuctionService auctionService;
 
-    @RequestMapping(value = "/",method = RequestMethod.GET)
+    @RequestMapping(value = "",method = RequestMethod.GET)
     public ResponseEntity getRunningAuctions(@RequestParam AuctionStatus status,int pageIndex) {
         Response responseObject = new Response();
         try{
@@ -39,13 +40,13 @@ public class AuctionController {
     }
 
 
-    @RequestMapping(value = "/auction/{itemCode}/bid", method = RequestMethod.POST)
-    public ResponseEntity placeBid(@PathVariable String itemCode, @RequestBody Double bidAmount, Long userId){
+    @RequestMapping(value = "/{itemCode}/bid", method = RequestMethod.POST)
+    public ResponseEntity placeBid(@PathVariable String itemCode, @RequestBody PlaceBidRequest placeBidRequest){
 
         Response responseObject = new Response();
         HttpStatus httpStatus;
         try{
-            BidStatusResponse response = auctionService.placeBid(itemCode,userId,bidAmount);
+            BidStatusResponse response = auctionService.placeBid(itemCode,placeBidRequest.getUserId(),placeBidRequest.getBidAmount());
 
             if(response.equals(BidStatusResponse.ACCEPTED)){
                 httpStatus = HttpStatus.ACCEPTED;
@@ -64,7 +65,7 @@ public class AuctionController {
             responseObject.setErrorMessage(e.getMessage());
             responseObject.setStatus(false);
             httpStatus =  HttpStatus.INTERNAL_SERVER_ERROR;
-            return ResponseEntity.status(httpStatus).body("");
+            return ResponseEntity.status(httpStatus).body(responseObject);
         }
 
     }
