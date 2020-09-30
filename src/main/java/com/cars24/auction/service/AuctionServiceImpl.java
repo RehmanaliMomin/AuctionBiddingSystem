@@ -34,7 +34,7 @@ public class AuctionServiceImpl  implements  AuctionService{
         return auctionRepository.findAuctionByStatusEquals(auctionStatus,pageRequest);
     }
 
-    public BidStatusResponse placeBid(String itemCode, Long userId, Double bidAmount){
+    public synchronized BidStatusResponse placeBid(String itemCode, Long userId, Double bidAmount){
         Auction auction = getByItemCode(itemCode);
         User user = userRepository.getByUserId(userId);
 

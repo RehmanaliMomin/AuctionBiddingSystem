@@ -33,7 +33,7 @@ public class AuctionController {
                     .body(responseObject);
         }
         catch (Exception e){
-            responseObject.setErrorMessage(e.getMessage());
+            responseObject.setMessage(e.getMessage());
             responseObject.setStatus(false);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseObject);
         }
@@ -62,7 +62,7 @@ public class AuctionController {
             return ResponseEntity.status(httpStatus).body(responseObject);
         }
         catch (Exception e){
-            responseObject.setErrorMessage(e.getMessage());
+            responseObject.setMessage(e.getMessage());
             responseObject.setStatus(false);
             httpStatus =  HttpStatus.INTERNAL_SERVER_ERROR;
             return ResponseEntity.status(httpStatus).body(responseObject);

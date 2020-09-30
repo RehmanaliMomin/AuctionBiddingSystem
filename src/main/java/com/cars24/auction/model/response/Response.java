@@ -3,7 +3,7 @@ package com.cars24.auction.model.response;
 public class Response {
 
     boolean status;
-    String errorMessage;
+    String message;
     Object responseObject;
 
     public boolean isStatus() {
@@ -14,12 +14,12 @@ public class Response {
         this.status = status;
     }
 
-    public String getErrorMessage() {
-        return errorMessage;
+    public String getMessage() {
+        return message;
     }
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public Object getResponseObject() {
@@ -32,7 +32,7 @@ public class Response {
 
     @Override
     public String toString() {
-        return "Response [status=" + status + ", errorMessage=" + errorMessage + ", responseObject=" + responseObject
+        return "Response [status=" + status + ", message=" + message + ", responseObject=" + responseObject
                 + "]";
     }
 }
